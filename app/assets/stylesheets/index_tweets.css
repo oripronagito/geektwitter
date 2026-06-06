@@ -1,0 +1,18 @@
+.sonota{
+    background-color: #e9e9ca;
+    display: inline-block;
+}
+
+.tweets-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+}
+
+.tweet{
+    background-color: #e9e9ca;
+    display: grid;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}

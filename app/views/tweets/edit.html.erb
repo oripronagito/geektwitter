@@ -1,0 +1,12 @@
+<%= form_for @tweet do |f| %>
+    <%= f.label :body %>
+    <%= f.text_field :body, :size => 140 %>
+
+    <div class = "field" >
+        <%= f.label"タグ(スペースで区切ると複数タグ登録できます)" %>
+        <%= f.text_field :tag_name, value: @tag_list,class:"form-control" %>
+    </div>
+    
+    <%= f.submit "編集する" %>
+
+<% end %>

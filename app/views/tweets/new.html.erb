@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag 'new_tweets', :media => "all" %>
+
+<h2><p><span class= "title">新規投稿ページ</p></h2>
+<%= form_for @tweet do |f| %>
+<br>
+<div class="content">
+    <div class="field">
+      <h2><p>投稿内容</p></h2>
+      <%= f.text_area :body, :size => "75x2" %>
+    </div>
+    <br>
+    <p>スペースを入力することで，複数のタグをつけることができます。</p>
+    <%= f.text_field :tag_name %>
+
+    <%= f.submit "投稿する" %>
+  <% end %>
+<br>
+  <%= link_to "一覧に戻る", tweets_path %>
+</div>

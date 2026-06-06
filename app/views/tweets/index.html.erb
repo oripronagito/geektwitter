@@ -1,0 +1,47 @@
+<%= stylesheet_link_tag 'index_tweets', :media => "all" %>
+
+<div class="sonota">
+<h2>投稿を検索</h2>
+  <%= form_tag({controller:"tweets",action:"index"},method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '🔎' %>
+  <% end %>
+
+<h2>タグリスト</h2>
+  <% @tag_list.each do |list| %>
+    #<%= link_to list.tag_name, tag_tweets_path(tag_id: list.id) %>
+    <%= "(#{list.tweets.count})" %>
+  <% end %>
+</div>
+
+<h2>一覧ページ</h2>
+<div class="tweets-container">
+  
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <%= t.user.name %>
+      <%= t.body %>
+      <%= t.created_at %>
+      
+    <ul>
+      <!-- いいね機能追加 -->
+      <% if user_signed_in? %>
+        <% if current_user.already_liked?(t) %>
+          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), data:{turbo_method: :delete} do %>
+              <p>いいねを取り消す<%= t.likes.count %></p>
+          <% end %>
+        <% else %>
+          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), data:{turbo_method: :post} do %>
+              <p>いいね<%= t.likes.count %></p>
+           <% end %>
+         <% end %>
+      <% else %>
+        <p>いいねの数 = </p><%= t.likes.count %>
+      <% end %>
+      <%= link_to "詳細へ",tweet_path(t.id) %>
+      <%= link_to "編集する",edit_tweet_path(t.id) %>
+      <%= button_to "削除する",tweet_path(t.id), method: :delete %><br>
+    </ul>
+      </div>
+  <% end %>
+</div>

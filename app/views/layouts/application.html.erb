@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geektwitter</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <h1>GeekTwitter</h1>
+      <div class="header-list">
+      <ul>
+        <%= link_to "ホーム", tweets_path %>
+        <% if user_signed_in? %>
+          <%= link_to "マイページ",user_path(current_user.id) %><br>
+        <% end %>
+        <%= link_to "新規投稿", new_tweet_path %>
+        <%= link_to "ログイン",tweets_path %>
+        <%= link_to "新規登録", new_user_registration_path %>
+      </ul>
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

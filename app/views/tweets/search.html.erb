@@ -1,0 +1,9 @@
+<h2>タグリスト</h2>
+<%= @tag.tag_name %>
+<%= "(#{@tag.tweets.count})" %>
+
+<br>
+<% @tweets.each do |tweet| %>
+    <%= link_to tweet.body, tweet %>
+    <br>
+<% end %>
