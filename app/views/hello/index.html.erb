@@ -1,2 +1,6 @@
-<%= link_to "ログイン",tweets_path %>
-<%= link_to "新規登録", new_user_registration_path %>
+<%= stylesheet_link_tag 'index_hellos', media: "all" %>
+
+<div class="button-area">
+  <%= link_to "ログイン", tweets_path, class: "menu-btn" %>
+  <%= link_to "新規登録", new_user_registration_path, class: "menu-btn" %>
+</div>

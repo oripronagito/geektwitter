@@ -1,23 +1,29 @@
+<%= stylesheet_link_tag 'show_users', :media => "all" %>
 <h1>ユーザーマイページ</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
-
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+<div class = "content" >
+  <p>名前 : <%= @user.name %></p>
+  <p>メールアドレス : <%= @user.email %></p>
+  <% if current_user.id == @user.id %>
+      <%= link_to "編集する", edit_user_registration_path %>
+  <% end %>
+</div>
 
 <h2>あなたの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-  <%= t.user.name %>
-  <%= t.body %>
-  <%= link_to "詳細へ", tweet_path(t.id) %>
-  </br>
-<% end %>
+<div class = "index">
+  <% @user.tweets.each do |t| %>
+    <ul>
+    <li><%= t.user.name %>
+    <%= t.body %>
+    <%= link_to "詳細へ", tweet_path(t.id) %></li>
+    </ul>
+    </br>
+  <% end %>
+</div>
+
+  <!-- 以下はいいね機能を実装している場合-->
 
 
-<!-- 以下はいいね機能を実装している場合-->
-
-
+<br>
 <%= link_to "Tweet一覧に戻る", tweets_path %>
-<br><%= button_to 'ログアウト',destroy_user_session_path, method: :delete %></br>
+<br>
+<%= button_to 'ログアウト',destroy_user_session_path, method: :delete %></br>

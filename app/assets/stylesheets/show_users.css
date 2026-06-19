@@ -1,0 +1,13 @@
+.content{
+    display: inline-block;
+    text-decoration: none;
+        
+}
+
+.index li{
+    display: inline-block;
+    height: 40px;
+    text-decoration: none;
+    background-color: #e9e9ca;
+    margin-top: 10px;
+}

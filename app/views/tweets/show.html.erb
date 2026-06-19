@@ -1,55 +1,113 @@
-<%= stylesheet_link_tag 'show_tweets', :media => "all" %>
+<%= stylesheet_link_tag 'show_tweets', media: "all" %>
 
-<h2><p><span class = "title">投稿詳細</p></h2>
-<br>
-<div class = 'content'>
-  <div class = 'tweet'>
-  <p><%= @tweet.body %></p>
-  <p><%= @tweet.created_at %></p>
+<div class="show-container">
 
-  <% @tags.each do |tag| %>
-  <% if tag.tweets.count > 0 %>
-  #<%= link_to tag.tag_name, tag_tweets_path(tag_id: tag.id) %>
-  <%= "(#{tag.tweets.count})" %>
-  <% end %>
-  <% end %>
-
-  <!-- いいね機能の追加 -->
-  <% if user_signed_in? %>
-  <% if current_user.already_liked?(@tweet) %>
-  <%= link_to tweet_like_path(@tweet), data:{turbo_method: :delete} do %>
-  <p>いいねを取り消す</p><%= @tweet.likes.count %>
-  <% end %>
-  <% else %>
-  <%= link_to tweet_likes_path(@tweet), data: {turbo_method: :post} do %>
-  <p>いいね</p><%= @tweet.likes.count %>
-  <% end %>
-  <% end %>
-  <% else %>
-  <p>いいねの数 = </p><%= @tweet.likes.count %>
-  <% end %>
-  <br> <%= link_to "編集する", edit_tweet_path(@tweet.id) %>    
+  <div class="show-title">
+    投稿詳細
   </div>
-  <br>
-  <div class ="comment-wrapper">
-  <p>コメント一覧</p>
-  <% @comments.each do |c| %>
-  <div>
-    <p>ユーザー名:<%= c.user.name unless c.user.blank? %></p>
-    <%= c.reply %>
+
+  <div class="tweet-card">
+
+    <div class="tweet-body">
+      <%= @tweet.body %>
     </div>
-        <br>
-  <% end %>
 
-  <% if user_signed_in? %>
-  <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
-    <%= f.text_area :reply %>
-    <%= button_tag type: "submit" do %>
-        <i class="far fa-comments"></i>コメントする
-    <% end %>
-  <% end %>
-  <% end %>
+    <div class="tweet-date">
+      <%= @tweet.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </div>
+
+    <div class="tag-area">
+      <% @tags.each do |tag| %>
+        <% if tag.tweets.count > 0 %>
+          #<%= link_to tag.tag_name,
+              tag_tweets_path(tag_id: tag.id) %>
+          (<%= tag.tweets.count %>)
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="like-area">
+      <% if user_signed_in? %>
+
+        <% if current_user.already_liked?(@tweet) %>
+
+          <%= link_to tweet_like_path(@tweet),
+              data: { turbo_method: :delete },
+              class: "like-btn" do %>
+
+            ♥ いいね取り消し
+            (<%= @tweet.likes.count %>)
+
+          <% end %>
+
+        <% else %>
+
+          <%= link_to tweet_likes_path(@tweet),
+              data: { turbo_method: :post },
+              class: "like-btn" do %>
+
+            ♡ いいね
+            (<%= @tweet.likes.count %>)
+
+          <% end %>
+
+        <% end %>
+
+      <% else %>
+
+        ♥ <%= @tweet.likes.count %>
+
+      <% end %>
+    </div>
+
+    <div class="edit-link">
+      <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+    </div>
+
   </div>
 
-  <%= link_to "Tweet一覧に戻る",tweets_path %>
+  <div class="comment-card">
+
+    <h3>コメント一覧 
+      <span class="comment-count-text">
+        <%= @comments.count %>件のコメント
+      </span>
+    </h3>
+
+    <% @comments.each do |c| %>
+
+      <div class="comment">
+
+        <p>
+          <strong>
+            <%= c.user.name unless c.user.blank? %>
+          </strong>
+        </p>
+
+        <p><%= c.reply %></p>
+
+      </div>
+
+    <% end %>
+
+    <% if user_signed_in? %>
+
+      <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+
+        <%= f.text_area :reply %>
+
+        <div class="comment-button">
+          <%= f.submit "コメントする" %>
+        </div>
+
+      <% end %>
+
+    <% end %>
+
+  </div>
+
+  <div class="back-link">
+    <%= link_to "一覧に戻る", tweets_path %>
+  </div>
+
 </div>

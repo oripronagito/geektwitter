@@ -1,9 +1,19 @@
-<h2>タグリスト</h2>
-<%= @tag.tag_name %>
-<%= "(#{@tag.tweets.count})" %>
+<%= stylesheet_link_tag 'search_tweets', :media => "all" %>
 
-<br>
-<% @tweets.each do |tweet| %>
-    <%= link_to tweet.body, tweet %>
+<div class = "tag-container">
+    <div class="tag-name">
+        <h2>#<%= @tag.tag_name %></h2>
+        <p><%= @tag.tweets.count %>件の投稿</p>
+    </div>
+
     <br>
-<% end %>
+    <div class="tweets-container">
+    <% @tweets.each do |tweet| %>
+        <div class="tweet">
+        <%= link_to tweet.body, tweet %>
+        </div>
+    <% end %>
+    </div>
+<br>
+</div>
+<%= link_to "一覧に戻る", tweets_path, class:"back-link" %>

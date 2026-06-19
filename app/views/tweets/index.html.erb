@@ -1,47 +1,122 @@
-<%= stylesheet_link_tag 'index_tweets', :media => "all" %>
+<%= stylesheet_link_tag 'index_tweets', media: "all" %>
 
-<div class="sonota">
-<h2>投稿を検索</h2>
-  <%= form_tag({controller:"tweets",action:"index"},method: :get) do %>
-    <%= text_field_tag :search %>
-    <%= submit_tag '🔎' %>
-  <% end %>
+<div class="top-panel">
 
-<h2>タグリスト</h2>
-  <% @tag_list.each do |list| %>
-    #<%= link_to list.tag_name, tag_tweets_path(tag_id: list.id) %>
-    <%= "(#{list.tweets.count})" %>
-  <% end %>
+  <div class="search-box">
+
+    <h2>投稿を検索</h2>
+
+    <%= form_tag(
+      {controller:"tweets", action:"index"},
+      method: :get
+    ) do %>
+
+      <%= text_field_tag :search, params[:search],
+          placeholder: "キーワードを入力" %>
+
+      <%= submit_tag "🔎" %>
+
+    <% end %>
+
+  </div>
+
+  <div class="tag-box">
+
+    <h2>タグリスト</h2>
+
+    <div class="tag-list">
+
+      <% @tag_list.each do |list| %>
+
+        <span class="tag-item">
+          #<%= link_to list.tag_name,
+              tag_tweets_path(tag_id: list.id) %>
+          (<%= list.tweets.count %>)
+        </span>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
 </div>
 
-<h2>一覧ページ</h2>
+<h2 class="page-title">投稿一覧</h2>
+
 <div class="tweets-container">
-  
+
   <% @tweets.each do |t| %>
+
     <div class="tweet">
-      <%= t.user.name %>
-      <%= t.body %>
-      <%= t.created_at %>
-      
-    <ul>
-      <!-- いいね機能追加 -->
-      <% if user_signed_in? %>
-        <% if current_user.already_liked?(t) %>
-          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), data:{turbo_method: :delete} do %>
-              <p>いいねを取り消す<%= t.likes.count %></p>
-          <% end %>
-        <% else %>
-          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), data:{turbo_method: :post} do %>
-              <p>いいね<%= t.likes.count %></p>
-           <% end %>
-         <% end %>
-      <% else %>
-        <p>いいねの数 = </p><%= t.likes.count %>
-      <% end %>
-      <%= link_to "詳細へ",tweet_path(t.id) %>
-      <%= link_to "編集する",edit_tweet_path(t.id) %>
-      <%= button_to "削除する",tweet_path(t.id), method: :delete %><br>
-    </ul>
+
+      <div class="tweet-user">
+        <%= t.user.name %>
       </div>
+
+      <div class="tweet-body">
+        <%= t.body %>
+      </div>
+
+      <div class="tweet-date">
+        <%= t.created_at.strftime("%Y-%m-%d %H:%M") %>
+      </div>
+
+      <div class="comment-count">
+        💬 <%= t.comments.count %>
+      </div>
+
+      <div class="like-area">
+
+        <% if user_signed_in? %>
+
+          <% if current_user.already_liked?(t) %>
+
+            <%= link_to tweet_like_path(
+                  id: t.id,
+                  tweet_id: t.id
+                ),
+                data:{turbo_method: :delete} do %>
+
+              ♥ <%= t.likes.count %>
+
+            <% end %>
+
+          <% else %>
+
+            <%= link_to tweet_likes_path(
+                  id: t.id,
+                  tweet_id: t.id
+                ),
+                data:{turbo_method: :post} do %>
+
+              ♡ <%= t.likes.count %>
+
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          ♥ <%= t.likes.count %>
+
+        <% end %>
+
+        </div>
+
+
+      <div class="tweet-links">
+
+        <%= link_to "詳細へ", tweet_path(t.id) %>
+
+        <%= link_to "編集", edit_tweet_path(t.id) %>
+
+        <%= link_to "削除",tweet_path(t.id),data:{turbo_method: :delete,turbo_confirm: "本当に削除しますか？"},class: "delete-btn" %>
+
+      </div>
+
+    </div>
+
   <% end %>
+
 </div>

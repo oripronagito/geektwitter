@@ -1,14 +1,114 @@
-.content{
-    display: inline-block;
+.show-container{
+    width: 800px;
+    margin: 50px auto;
+}
+
+.show-title{
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.tweet-card{
+    background-color: #e9e9ca;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.tweet-body{
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.tweet-date{
+    margin-bottom: 20px;
+}
+
+.tag-area{
+    margin-bottom: 20px;
+}
+
+.tag-area a{
     text-decoration: none;
-
-    
-}
-.title{
-    background-color: #e9e9ca;
+    color: black;
+    font-weight: bold;
 }
 
-.comment-wrapper{
-    
+.like-area{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.like-btn{
+    text-decoration: none;
+    color: black;
+}
+
+.edit-link a{
+    display: inline-block;
+
+    background-color: #76e081;
+
+    padding: 10px 20px;
+
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.comment-card{
     background-color: #e9e9ca;
+    padding: 30px;
+}
+
+.comment{
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.comment textarea{
+    width: 100%;
+    height: 100px;
+
+    margin-top: 15px;
+
+    box-sizing: border-box;
+}
+
+.comment-button{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.comment-count-text{
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.comment-button input{
+    width: 180px;
+    height: 50px;
+
+    border: none;
+
+    background-color: #76e081;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.back-link{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-link a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }

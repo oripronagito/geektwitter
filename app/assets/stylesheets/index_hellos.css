@@ -1,0 +1,56 @@
+.home-container{
+    display: flex;
+    justify-content: center;
+
+    margin-top: 120px;
+}
+
+.welcome-card{
+    background-color: #e9e9ca;
+
+    width: 700px;
+
+    padding: 50px;
+
+    text-align: center;
+}
+
+.welcome-card h2{
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.welcome-card p{
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.button-area{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.menu-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 180px;
+    height: 70px;
+    margin-top: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+
+    background-color: #e9e9ca;
+
+    color: black;
+    text-decoration: none;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.menu-btn:hover{
+    opacity: 0.8;
+}

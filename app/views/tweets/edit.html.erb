@@ -1,12 +1,29 @@
-<%= form_for @tweet do |f| %>
-    <%= f.label :body %>
-    <%= f.text_field :body, :size => 140 %>
+<%= stylesheet_link_tag 'edit_tweets', media: "all" %>
 
-    <div class = "field" >
-        <%= f.label"タグ(スペースで区切ると複数タグ登録できます)" %>
-        <%= f.text_field :tag_name, value: @tag_list,class:"form-control" %>
+<div class="edit-container">
+
+  <div class="edit-title">
+    投稿を編集
+  </div>
+
+  <%= form_for @tweet do |f| %>
+
+    <div class="field">
+      <label>投稿内容</label>
+      <%= f.text_field :body %>
     </div>
-    
-    <%= f.submit "編集する" %>
 
-<% end %>
+    <div class="field">
+      <label>タグ（スペース区切りで複数登録可能）</label>
+      <%= f.text_field :tag_name,
+          value: @tag_list,
+          class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "編集する" %>
+    </div>
+
+  <% end %>
+
+</div>
